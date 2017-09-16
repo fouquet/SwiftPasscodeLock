@@ -16,7 +16,10 @@ struct PasscodeLockConfiguration: PasscodeLockConfigurationType {
     var isTouchIDAllowed = true
     let shouldRequestTouchIDImmediately = true
     let maximumInccorectPasscodeAttempts = -1
-    
+
+    var imageForTouchID: UIImage = UIImage()
+    var imageForFaceID: UIImage = UIImage()
+
     init(repository: PasscodeRepositoryType) {
         
         self.repository = repository

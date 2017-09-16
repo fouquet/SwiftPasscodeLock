@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegate {
     
@@ -86,7 +87,19 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         
         updatePasscodeView()
         deleteSignButton?.isEnabled = false
-        
+
+        var authError: NSError?
+
+        if LAContext().canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+            touchIDButton?.setImage(passcodeConfiguration.imageForTouchID, for: .normal)
+
+            if #available(iOS 11.0, *) {
+                if LAContext().biometryType == .typeFaceID {
+                    touchIDButton?.setImage(passcodeConfiguration.imageForFaceID, for: .normal)
+                }
+            }
+        }
+
         setupEvents()
     }
     
