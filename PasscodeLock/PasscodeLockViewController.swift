@@ -94,7 +94,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
             touchIDButton?.setImage(passcodeConfiguration.imageForTouchID, for: .normal)
 
             if #available(iOS 11.0, *) {
-                if LAContext().biometryType == .typeFaceID {
+                if LAContext().biometryType == .faceID {
                     touchIDButton?.setImage(passcodeConfiguration.imageForFaceID, for: .normal)
                 }
             }

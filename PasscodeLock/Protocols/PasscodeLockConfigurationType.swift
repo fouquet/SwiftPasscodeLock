@@ -6,7 +6,7 @@
 //  Copyright © 2015 Yanko Dimitrov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol PasscodeLockConfigurationType {
     
