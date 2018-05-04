@@ -90,11 +90,13 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
 
         var authError: NSError?
 
-        if LAContext().canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+        let context = LAContext()
+
+        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
             touchIDButton?.setImage(passcodeConfiguration.imageForTouchID, for: .normal)
 
             if #available(iOS 11.0, *) {
-                if LAContext().biometryType == .faceID {
+                if context.biometryType == .faceID {
                     touchIDButton?.setImage(passcodeConfiguration.imageForFaceID, for: .normal)
                 }
             }
