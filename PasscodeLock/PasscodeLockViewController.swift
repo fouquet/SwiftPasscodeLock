@@ -126,22 +126,22 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
     
     fileprivate func setupEvents() {
         
-        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appWillEnterForegroundHandler(_:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appWillEnterForegroundHandler(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.addObserver(self, selector: #selector(PasscodeLockViewController.appDidEnterBackgroundHandler(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     fileprivate func clearEvents() {
         
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        notificationCenter?.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        notificationCenter?.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
-    open func appWillEnterForegroundHandler(_ notification: Notification) {
+    @objc open func appWillEnterForegroundHandler(_ notification: Notification) {
         
         authenticateWithTouchID()
     }
     
-    open func appDidEnterBackgroundHandler(_ notification: Notification) {
+    @objc open func appDidEnterBackgroundHandler(_ notification: Notification) {
         
         shouldTryToAuthenticateWithBiometrics = false
     }
@@ -182,8 +182,8 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         
         // if presented as modal
         if presentingViewController?.presentedViewController == self {
-            
-            dismiss(animated: animateOnDismiss, completion: { [weak self] _ in
+       
+            dismiss(animated: animateOnDismiss, completion: { [weak self] in
                 
                 self?.dismissCompletionCallback?()
                 
@@ -251,7 +251,7 @@ open class PasscodeLockViewController: UIViewController, PasscodeLockTypeDelegat
         
         deleteSignButton?.isEnabled = true
         animatePlaceholders(placeholders, toState: .inactive)
-        dismissPasscodeLock(lock, completionHandler: { [weak self] _ in
+        dismissPasscodeLock(lock, completionHandler: { [weak self] in
             self?.successCallback?(lock)
         })
     }

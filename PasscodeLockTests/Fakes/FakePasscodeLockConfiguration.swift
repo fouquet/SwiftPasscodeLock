@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 class FakePasscodeLockConfiguration: PasscodeLockConfigurationType {
-    
+    var imageForTouchID: UIImage
+    var imageForFaceID: UIImage
     let repository: PasscodeRepositoryType
     let passcodeLength = 4
     var isTouchIDAllowed = false
@@ -19,5 +21,7 @@ class FakePasscodeLockConfiguration: PasscodeLockConfigurationType {
     init(repository: PasscodeRepositoryType) {
         
         self.repository = repository
+        imageForFaceID = UIImage()
+        imageForTouchID = UIImage()
     }
 }
